@@ -134,12 +134,68 @@ fig.update_layout(title_text='2015 Vancouver Average Income') #title
 fig.show()
 ```
 
-![View Plotly](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html)
+[View Plotly](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html)
 
 And there you have it, an interactive choropleth. What if you want to plot two graphs in one?
 
 [View code on gist](https://gist.github.com/chestnutcone/2865518b70fd8a97ef69eddfda672b7b)
 
-![View Plotly with Two Graphs](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html)
+```
+fig = go.Figure() # empty figure
+
+# plotting average income
+fig.add_trace(
+    go.Choroplethmapbox(geojson=van_geojson,
+                        locations=average_income.index,   
+                        z=average_income, 
+                        colorscale='Magma', 
+                        marker_opacity=0.5, 
+                        marker_line_width=0, 
+                        name='2015 Vancouver Average Income'
+    )
+)
+
+# plotting median income
+fig.add_trace(
+    go.Choroplethmapbox(geojson=van_geojson, # geojson with 'id'
+                        locations=median_income.index,
+                        z=median_income, 
+                        colorscale='Magma', 
+                        marker_opacity=0.5, 
+                        marker_line_width=0, 
+                        name='2015 Vancouver Median Income',
+                        visible=False, # this is important because you don't want the graphs to overlap at the start
+    )
+)
+    
+# updates the layout
+fig.update_layout(
+    updatemenus=[
+        go.layout.Updatemenu(
+            active=0,
+            buttons=[
+                dict(label='Average income',
+                     method='update',
+                     args=[{'visible':[True, False]}, # graph visibility
+                           {'title': "Average income"}]),
+                dict(label='Median income', 
+                     method='update',
+                     args=[{'visible':[False, True]}, # want to show only the second graph when clicking button
+                           {'title': "Median income"}]),
+            ]
+        )
+    ]
+)
+
+
+fig.update_layout(mapbox_style="carto-positron",
+                 mapbox_zoom=11, 
+                  mapbox_center={'lat': 49.24, 'lon':-123.1}) 
+fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0})
+fig.update_layout(title_text='2015 Vancouver Average Income') #title of the first graph that appears
+fig.show()
+```
+
+[View Plotly with Two Graphs](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html)
 
 That is it!

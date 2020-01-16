@@ -25,7 +25,8 @@ print(van_geojson['features'][0].keys())
 ``` 
 
 ```
-out: dict_keys(['type', 'geometry', 'properties'])
+out: 
+dict_keys(['type', 'geometry', 'properties'])
 ```
 
 ```

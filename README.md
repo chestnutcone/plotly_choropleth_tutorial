@@ -94,15 +94,52 @@ Name: 2, dtype: int32
 ```
 
 ### Plot with Plotly
-{% gist 68b1e992de68c6850a0cbe354b4db620 %}
+[View code on gist](https://gist.github.com/chestnutcone/68b1e992de68c6850a0cbe354b4db620)
+```
+fig = go.Figure() # empty figure
 
-[View Plotly](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html)
+# first figure
+fig.add_trace(
+    go.Choroplethmapbox(geojson=van_geojson, # geojson with 'id'
+                        locations=average_income.index,   # index is the neighborhood names, which will match to 'id' of geojson
+                        z=average_income, # values of data you want to plot
+                        colorscale='Magma', # your colorscale
+                        marker_opacity=0.5, 
+                        marker_line_width=0, 
+                        name='2015 Vancouver Average Income'
+    )
+)
+    
+# updates the layout
+fig.update_layout(
+    updatemenus=[
+        go.layout.Updatemenu(
+            active=0,
+            buttons=[
+                dict(label='Average income',
+                     method='update',
+                     args=[{'visible':[True]}, # graph visibility, comes into play when doing multiple graph
+                           {'title': "Average income"}]), # title
+            ]
+        )
+    ]
+)
+
+
+fig.update_layout(mapbox_style="carto-positron",
+                 mapbox_zoom=11, # how much zoom you want at the start
+                  mapbox_center={'lat': 49.24, 'lon':-123.1}) # center of the map at the start
+fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0}) # margins
+fig.update_layout(title_text='2015 Vancouver Average Income') #title
+fig.show()
+```
+
+![View Plotly](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html)
 
 And there you have it, an interactive choropleth. What if you want to plot two graphs in one?
 
-{% gist 2865518b70fd8a97ef69eddfda672b7b %}
-<script src="https://gist.github.com/chestnutcone/.js"></script>
+[View code on gist](https://gist.github.com/chestnutcone/2865518b70fd8a97ef69eddfda672b7b)
 
-[View Plotly with Two Graphs](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html)
+![View Plotly with Two Graphs](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html)
 
 That is it!

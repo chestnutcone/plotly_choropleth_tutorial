@@ -28,7 +28,9 @@ print(van_geojson['features'][0].keys())
 out: dict_keys(['type', 'geometry', 'properties'])
 ```
 
-```print(van_geojson['features'][0]['properties'])```
+```
+print(van_geojson['features'][0]['properties'])
+```
 
 ```out: 
 {'cartodb_id': 7,
@@ -92,14 +94,15 @@ Name: 2, dtype: int32
 ```
 
 ### Plot with Plotly
-<script src="https://gist.github.com/chestnutcone/68b1e992de68c6850a0cbe354b4db620.js"></script>
+{% gist 68b1e992de68c6850a0cbe354b4db620 %}
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html" height="525" width="100%"></iframe>
+[View Plotly](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_income.html)
 
 And there you have it, an interactive choropleth. What if you want to plot two graphs in one?
 
-<script src="https://gist.github.com/chestnutcone/2865518b70fd8a97ef69eddfda672b7b.js"></script>
+{% gist 2865518b70fd8a97ef69eddfda672b7b %}
+<script src="https://gist.github.com/chestnutcone/.js"></script>
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html" height="525" width="100%"></iframe>
+[View Plotly with Two Graphs](https://chestnutcone.github.io/plotly_choropleth_tutorial/vancouver_average_median_income.html)
 
 That is it!
